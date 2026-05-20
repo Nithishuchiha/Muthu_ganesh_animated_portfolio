@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ── */
+:root {
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  --bg: #050508;
+  --fg: #ffffff;
+  --accent: #00ffc8;
+  --muted: #667788;
+}
+
+/* ── Base resets ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { cursor: none; }
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Font helpers ── */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ── Outlined text ── */
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.6);
+  color: transparent;
+}
+.text-stroke-sm {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+  color: transparent;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.1); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ── Selection ── */
+::selection {
+  background: #00ffc833;
+  color: #fff;
+}
+
+/* ── Smooth cursor hide for mobile ── */
+@media (pointer: coarse) {
+  html { cursor: auto; }
+  .cursor-ring, [class*="cursor"] { display: none !important; }
+}
+
+/* ── Noise texture overlay (applied via pseudo on body) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 9999;
+}
