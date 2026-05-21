@@ -15,10 +15,11 @@ export default function Footer() {
             remarkable.
           </h2>
           <a
-            href="mailto:hello@yourname.dev"
-            className="mt-8 inline-flex items-center gap-3 font-mono text-sm text-white/50 hover:text-white transition-colors duration-300 group"
+            href="mailto:smuthuganesh01@gmail.com"
+            aria-label="Email smuthuganesh01@gmail.com"
+            className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/[0.08] bg-white/[0.02] px-5 py-3 font-mono text-sm text-white/60 hover:text-white hover:border-[#00ffc8]/40 transition-colors duration-300 group"
           >
-            hello@yourname.dev
+            Send an email
             <motion.span
               animate={{ x: [0, 4, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
@@ -33,7 +34,6 @@ export default function Footer() {
             {[
               { label: "GitHub", href: "https://github.com/MuthuGanesh-dev/" },
               { label: "LinkedIn", href: "https://www.linkedin.com/in/muthu-ganesh-405a35320/" },
-              { label: "Twitter", href: "https://twitter.com" },
               { label: "Résumé", href: "/resume.pdf" },
             ].map(({ label, href }) => (
               <a
