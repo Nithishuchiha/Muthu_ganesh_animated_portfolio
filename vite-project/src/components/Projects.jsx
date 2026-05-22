@@ -70,7 +70,7 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto"
+      className="py-20 sm:py-24 lg:py-32 px-6 lg:px-12 max-w-7xl mx-auto"
     >
       {/* Section header */}
       <div ref={headingRef} className="mb-8 sm:mb-12 flex items-end justify-between gap-6">

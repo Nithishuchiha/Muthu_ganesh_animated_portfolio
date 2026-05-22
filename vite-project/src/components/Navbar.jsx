@@ -32,7 +32,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="font-display text-xl text-white tracking-tight">
             <span className="text-[#00ffc8]">{"<"}</span>
-            YourName
+            MGP
             <span className="text-[#00ffc8]">{"/>"}</span>
           </Link>
 
