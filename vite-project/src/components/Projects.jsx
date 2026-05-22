@@ -11,123 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ALL = "All";
 const categories = [ALL, ...Array.from(new Set(projects.map((p) => p.category)))];
 
-// ─── Mobile Projects ─────────────────────────────────────────────────────────
-function MobileProjects() {
-  const [activeCategory, setActiveCategory] = useState(ALL);
-  const filterRef = useRef(null);
-
-  const filtered =
-    activeCategory === ALL ? projects : projects.filter((p) => p.category === activeCategory);
-
-  const featured = filtered.filter((p) => p.featured);
-  const rest = filtered.filter((p) => !p.featured);
-
-  return (
-    <section id="projects" className="py-20 px-4">
-      {/* ── Section header ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-8"
-      >
-        <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-[#00ffc8]/60 flex items-center gap-2 mb-3">
-          <span className="w-5 h-px bg-[#00ffc8]/60" />
-          Selected Work
-        </span>
-        <div className="flex items-end justify-between">
-          <h2 className="font-display text-[clamp(2rem,10vw,3.5rem)] leading-none tracking-tight text-white">
-            Projects
-          </h2>
-          <span className="font-mono text-[10px] text-white/20 tracking-widest">
-            {projects.length} TOTAL
-          </span>
-        </div>
-      </motion.div>
-
-      {/* ── Category filter pills (horizontal scroll) ── */}
-      <div
-        ref={filterRef}
-        className="flex gap-2 overflow-x-auto no-scrollbar pb-4 mb-6 -mx-4 px-4"
-      >
-        {categories.map((cat) => {
-          const active = cat === activeCategory;
-          return (
-            <motion.button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              whileTap={{ scale: 0.93 }}
-              className="flex-shrink-0 font-mono text-[9px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm border transition-all duration-200"
-              style={{
-                backgroundColor: active ? "#00ffc822" : "transparent",
-                color: active ? "#00ffc8" : "rgba(255,255,255,0.3)",
-                borderColor: active ? "#00ffc844" : "rgba(255,255,255,0.08)",
-              }}
-            >
-              {cat}
-            </motion.button>
-          );
-        })}
-      </div>
-
-      {/* ── Featured cards (full-width stack) ── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-        >
-          {featured.length > 0 && (
-            <div className="flex flex-col gap-4 mb-4">
-              {featured.map((p, i) => (
-                <ProjectCard key={p.id} project={p} index={i} />
-              ))}
-            </div>
-          )}
-
-          {/* ── Rest — 2-col grid on larger phones, 1-col on small ── */}
-          {rest.length > 0 && (
-            <div
-              className="grid gap-4"
-              style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))" }}
-            >
-              {rest.map((p, i) => (
-                <ProjectCard key={p.id} project={p} index={featured.length + i} />
-              ))}
-            </div>
-          )}
-
-          {filtered.length === 0 && (
-            <div className="py-20 text-center">
-              <p className="font-mono text-xs text-white/20 tracking-widest">No projects in this category</p>
-            </div>
-          )}
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Count footer ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="mt-12 flex items-center gap-3 justify-center"
-      >
-        <span className="w-10 h-px bg-white/10" />
-        <span className="font-mono text-[10px] text-white/20 tracking-widest">
-          {filtered.length} PROJECTS
-        </span>
-        <span className="w-10 h-px bg-white/10" />
-      </motion.div>
-    </section>
-  );
-}
-
-// ─── Desktop Projects (original GSAP + grid) ─────────────────────────────────
-function DesktopProjects() {
+export default function Projects() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState(ALL);
@@ -183,15 +67,19 @@ function DesktopProjects() {
   }, [activeCategory]);
 
   return (
-    <section ref={sectionRef} id="projects" className="py-32 px-6 lg:px-12 max-w-7xl mx-auto">
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto"
+    >
       {/* Section header */}
-      <div ref={headingRef} className="mb-12 flex items-end justify-between">
+      <div ref={headingRef} className="mb-8 sm:mb-12 flex items-end justify-between gap-6">
         <div>
-          <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-[#00ffc8]/60 flex items-center gap-2 mb-4">
-            <span className="w-6 h-px bg-[#00ffc8]/60" />
+          <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-[#00ffc8]/60 flex items-center gap-2 mb-3 sm:mb-4">
+            <span className="w-5 sm:w-6 h-px bg-[#00ffc8]/60" />
             Selected Work
           </span>
-          <h2 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-none tracking-tight text-white">
+          <h2 className="font-display text-[clamp(2.25rem,8vw,5.5rem)] leading-none tracking-tight text-white">
             Projects
           </h2>
         </div>
@@ -201,27 +89,29 @@ function DesktopProjects() {
       </div>
 
       {/* ── Category filter bar ── */}
-      <div className="mb-10 flex items-center gap-3 flex-wrap">
-        {categories.map((cat) => {
-          const active = cat === activeCategory;
-          return (
-            <motion.button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              className="font-mono text-[10px] tracking-[0.22em] uppercase px-3.5 py-1.5 rounded-sm border transition-all duration-200"
-              style={{
-                backgroundColor: active ? "#00ffc822" : "transparent",
-                color: active ? "#00ffc8" : "rgba(255,255,255,0.3)",
-                borderColor: active ? "#00ffc844" : "rgba(255,255,255,0.08)",
-              }}
-            >
-              {cat}
-            </motion.button>
-          );
-        })}
-        <span className="ml-auto font-mono text-[10px] text-white/20 tracking-widest">
+      <div className="mb-8 sm:mb-10 flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto sm:overflow-visible no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+          {categories.map((cat) => {
+            const active = cat === activeCategory;
+            return (
+              <motion.button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex-shrink-0 font-mono text-[9px] sm:text-[10px] tracking-[0.22em] uppercase px-3 sm:px-3.5 py-1.5 rounded-sm border transition-all duration-200"
+                style={{
+                  backgroundColor: active ? "#00ffc822" : "transparent",
+                  color: active ? "#00ffc8" : "rgba(255,255,255,0.3)",
+                  borderColor: active ? "#00ffc844" : "rgba(255,255,255,0.08)",
+                }}
+              >
+                {cat}
+              </motion.button>
+            );
+          })}
+        </div>
+        <span className="ml-auto whitespace-nowrap font-mono text-[10px] text-white/20 tracking-widest">
           {filtered.length} / {projects.length}
         </span>
       </div>
@@ -236,7 +126,7 @@ function DesktopProjects() {
           transition={{ duration: 0.3 }}
         >
           {featured.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
               {featured.map((p, i) => (
                 <ProjectCard key={p.id} project={p} index={i} />
               ))}
@@ -245,7 +135,7 @@ function DesktopProjects() {
 
           {/* ── Rest — 3-col grid ── */}
           {rest.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {rest.map((p, i) => (
                 <ProjectCard key={p.id} project={p} index={featured.length + i} />
               ))}
@@ -261,28 +151,13 @@ function DesktopProjects() {
       </AnimatePresence>
 
       {/* Count */}
-      <div className="mt-16 flex items-center gap-4 justify-center">
-        <span className="w-16 h-px bg-white/10" />
-        <span className="font-mono text-xs text-white/20 tracking-widest">
-          {projects.length} PROJECTS
+      <div className="mt-12 sm:mt-16 flex items-center gap-4 justify-center">
+        <span className="w-10 sm:w-16 h-px bg-white/10" />
+        <span className="font-mono text-[10px] sm:text-xs text-white/20 tracking-widest">
+          {filtered.length} PROJECTS
         </span>
-        <span className="w-16 h-px bg-white/10" />
+        <span className="w-10 sm:w-16 h-px bg-white/10" />
       </div>
     </section>
   );
-}
-
-// ─── Unified responsive export ───────────────────────────────────────────────
-export default function Projects() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () =>
-      setIsMobile(window.matchMedia("(pointer: coarse), (max-width: 768px)").matches);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  return isMobile ? <MobileProjects /> : <DesktopProjects />;
 }

@@ -55,10 +55,19 @@ body {
   color: #fff;
 }
 
+/* ── Utility: hide scrollbar (used in horizontal scrollers) ── */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 /* ── Smooth cursor hide for mobile ── */
 @media (pointer: coarse) {
   html { cursor: auto; }
-  .cursor-ring, [class*="cursor"] { display: none !important; }
+  .cursor-ring, .cursor-dot { display: none !important; }
 }
 
 /* ── Noise texture overlay (applied via pseudo on body) ── */
